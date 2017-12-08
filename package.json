@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.17.1",
     "mdi": "^2.0.46",
     "nuxt": "^1.0.0-rc11",
     "vuetify": "^0.17.3"
