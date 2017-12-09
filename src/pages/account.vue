@@ -16,7 +16,7 @@ v-container
       :value="$store.state.credentials.secret"
       @change="onSecretChange"
     )
-    v-btn(@click.stop="loadAccountInfo") Save credentials
+    v-btn(@click.stop="loadAccountInfo" color="green") Save credentials
     v-avatar
       v-icon person
 </template>

@@ -13,9 +13,8 @@ v-app
 			v-toolbar.green.lighten-2()
 				v-toolbar-title Application
 				v-spacer
-				v-btn(flat fab to="/account")
-					v-avatar
-						v-icon person
+				v-avatar
+					v-icon person
 			v-list-tile(v-for="nav in ui.nav" :key="nav.index" :to="nav.href")
 				v-list-tile-action
 					v-icon {{ nav.icon }}
@@ -24,7 +23,7 @@ v-app
 						span {{ nav.name }}
 	v-content
 		nuxt
-	v-bottom-nav.hidden-lg-and-up.white(fixed app :value="true" )
+	v-bottom-nav.hidden-lg-and-up(fixed app :value="true" )
 		v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.href" flat color="gray")
 			span {{ nav.name }}
 			v-icon {{ nav.icon }}
@@ -56,14 +55,10 @@ export default {
 }
 </script>
 
-<style>
-@import url("https://unpkg.com/vuetify@0.17.3/dist/vuetify.min.css");
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
-</style>
 <style lang="styl" src="vuetify/src/stylus/main.styl"></style>
-<style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style>
-<!-- <style lang="scss" src="mdi/scss/materialdesignicons.scss"></style> -->
-<style lang="sass" scoped>
+<style src="~/assets/style/icons.css"></style>
+<!-- <style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style> -->
+<style lang="sass">
 #drawer
 	min-height: 100vh
 </style>
