@@ -1,0 +1,13 @@
+div.container
+  b-table(
+    :data="data.stats.current"
+    default-sort
+    paginated
+    )
+    template(scope="props")
+      b-table-column.is-6(label="Pair") {{ props.row.pair }}
+      b-table-column.is-6(label="Provider" sortable field="provider") {{ props.row.provider }}
+      b-table-column.is-6(label="Buy") {{ props.row.now.ask | toFixed(2) }}
+      b-table-column.is-6(label="Sell") {{ props.row.now.bid | toFixed(2) }}
+    template(slot-scope="empty")
+      h2 No data
