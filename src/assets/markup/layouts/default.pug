@@ -1,0 +1,13 @@
+div.container
+  div.container.navbar
+    div.navbar-menu
+      div.navbar-end
+        div.navbar-item(
+          v-for="nav in ui.nav"
+          )
+          nuxt-link(
+            :to="nav.to"
+            )
+            span {{ nav.name }}
+  div.container
+    nuxt

@@ -1,20 +1,26 @@
-const { set } = require('lodash')
 const { writeFileSync } = require('fs')
+const { set } = require('lodash')
 
-const babel = {
-  presets: [
-    'vue-app',
-    'env'
-  ],
+const patchRules = (filter, key, value) => {
+  const rulesToPatch = this.filter(filter)
 
-  plugins: [
-    //modules
-    "transform-es2015-modules-commonjs",
-    "add-module-exports",
+  rulesToPatch.forEach(rule => {
+    set(rule, key, value)
+  })
+}
 
-    //syntax
-    "transform-object-rest-spread"
-  ]
+const getLoaders = (rules, loaderRegexp) => {
+  let loaders = []
+
+  rules.forEach(rule => {
+    if(rule.loader && rule.loader.match(loaderRegexp)) {
+      loaders.push(rule)
+    } else if(rule.use) {
+      loaders = [...loaders, ...getLoaders(rule.use, loaderRegexp)]
+    }
+  })
+
+  return loaders
 }
 
 module.exports = {
@@ -24,14 +30,19 @@ module.exports = {
     '~/plugins/filters'
   ],
   build: {
-    babel,
-    extend(config, { isClient }) {
-      const mainFields = ['module', 'main']
-      if(isClient) {
-        mainFields.unshift('browser')
-      }
-      // set(config, 'resolve.mainFields', mainFields)
-      // console.log(config.module.rules[0].options)
+    extend(config) {
+      config.resolve.extensions.push('.yaml')
+      config.module.rules.push({
+        test: /\.ya?ml$/,
+        loaders: [
+          'json-loader',
+          'yaml-loader'
+        ]
+      })
+
+      console.log(config.module)
+
+      // console.log(getLoaders(config.module.rules, /^css/))
     }
   }
 }
