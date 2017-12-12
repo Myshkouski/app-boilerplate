@@ -1,24 +1,15 @@
 <template lang="pug">
-v-container
-  v-card
-    span {{ user }}
-    v-text-field(
-      name="input-id"
-      label="id"
-      id="input-id"
-      :value="$store.state.credentials.id"
-      @change="onIdChange"
-    )
-    v-text-field(
-      name="input-secret"
-      label="secret"
-      id="input-secret"
-      :value="$store.state.credentials.secret"
-      @change="onSecretChange"
-    )
-    v-btn(@click.stop="loadAccountInfo" color="green") Save credentials
-    v-avatar
-      v-icon person
+div.tile.is-ancestor
+  div.tile.is-parent.is-3.is-vertical
+    div.tile.is-child
+      p One
+    div.tile.is-child
+      p Two
+  div.tile.is-parent.is-9
+    div.tile.is-child
+      p One
+    div.tile.is-child
+      p Two
 </template>
 
 <script>
@@ -54,3 +45,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.column, .tile
+  border: 1px dashed
+</style>

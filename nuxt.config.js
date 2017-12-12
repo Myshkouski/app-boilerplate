@@ -1,33 +1,37 @@
+const { set } = require('lodash')
+const { writeFileSync } = require('fs')
+
+const babel = {
+  presets: [
+    'vue-app',
+    'env'
+  ],
+
+  plugins: [
+    //modules
+    "transform-es2015-modules-commonjs",
+    "add-module-exports",
+
+    //syntax
+    "transform-object-rest-spread"
+  ]
+}
+
 module.exports = {
   srcDir: 'src/',
   plugins: [
-    '~/plugins/vuetify'
+    '~/plugins/bootstrap',
+    '~/plugins/filters'
   ],
   build: {
-    extend( config ) {
-      function isCssLoader( rule ) {
-        if ( rule.loader == 'css-loader' ) {
-          return rule
-        }
-      };
-
-      function useCssRule( rule ) {
-        if ( rule.use ) {
-          return rule.use.find( isCssLoader )
-        }
+    babel,
+    extend(config, { isClient }) {
+      const mainFields = ['module', 'main']
+      if(isClient) {
+        mainFields.unshift('browser')
       }
-
-      function isCssRule( rule ) {
-        return isCssLoader( rule ) || useCssRule( rule )
-      }
-
-      config.module.rules.forEach( rule => {
-        const cssLoader = isCssRule( rule )
-        if ( cssLoader ) {
-          // cssLoader.options.url = false
-          // cssLoader.options.import = false
-        }
-      } )
+      // set(config, 'resolve.mainFields', mainFields)
+      // console.log(config.module.rules[0].options)
     }
   }
 }
