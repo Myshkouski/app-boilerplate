@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="sass">
-.b-tabs.is-fullwidth nav li
-  flex-grow: 1
+.b-tabs.is-fullwidth li
+	flex-grow: 1
   flex-shrink: 0
 </style>

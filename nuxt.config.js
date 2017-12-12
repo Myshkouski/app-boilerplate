@@ -40,8 +40,6 @@ module.exports = {
         ]
       })
 
-      console.log(config.module)
-
       // console.log(getLoaders(config.module.rules, /^css/))
     }
   }
