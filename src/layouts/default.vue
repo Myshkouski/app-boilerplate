@@ -1,16 +1,16 @@
 <template lang="pug">
 v-app
-	v-toolbar.hidden-lg-and-up.green.lighten-2(fixed app)
+	v-toolbar.hidden-lg-and-up.gray.lighten-1(fixed app)
 		//- v-toolbar-side-icon.hidden-md-and-down(@click.stop="ui.drawer = !ui.drawer")
 			v-icon mdi-menu
 		v-toolbar-title Application
-	v-navigation-drawer#drawer.hidden-md-and-down.green.lighten-2(
+	v-navigation-drawer#drawer.hidden-md-and-down.gray.lighten-1(
 		fixed
 		touchless
 		app
 	)
 		v-list(dense)
-			v-toolbar.green.lighten-2()
+			v-toolbar.gray.lighten-1()
 				v-toolbar-title Application
 				v-spacer
 				v-avatar
@@ -56,9 +56,11 @@ export default {
 </script>
 
 <style lang="styl" src="vuetify/src/stylus/main.styl"></style>
-<style src="~/assets/style/icons.css"></style>
+<style src="~/assets/style/icons.sass"></style>
 <!-- <style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style> -->
 <style lang="sass">
+html
+	overflow-y: auto
 #drawer
 	min-height: 100vh
 </style>

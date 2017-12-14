@@ -105,7 +105,7 @@ export default {
   methods: {
     togglePolling( e ) {
       this.poll = e.target.checked
-      whilst( () => this.poll, cb => this.get().then( () => setTimeout( () => cb(), this.data.interval ) ).catch( err => cb( err ) ) )
+      whilst( () => this.poll, cb => this.get()/*.then( () => setTimeout( () => cb(), this.data.interval ) )*/.catch( err => cb( err ) ) )
     },
 
     get() {
@@ -117,7 +117,7 @@ export default {
         this.data.stats.prev = this.data.stats.current
         this.data.stats.current = tickers.reduce( ( a, b ) => a.concat( b ), [] ).map( ( item, index ) => Object.assign( {}, item, {
           index
-        } ) ).sort( ( a, b ) => {
+        } ) )/*.sort( ( a, b ) => {
           for ( let char in a.pair[ 0 ] ) {
             if ( a.pair[ 0 ][ char ] > b.pair[ 0 ][ char ] )
               return 1
@@ -136,7 +136,7 @@ export default {
             return 1
 
           return 0
-        } )
+        } )*/
       } ).catch( err => console.error( err ) )
     }
   }
