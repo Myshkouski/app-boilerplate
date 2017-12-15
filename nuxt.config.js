@@ -1,26 +1,26 @@
 const { set } = require('lodash')
 
-const patchRules = (filter, key, value) => {
-  const rulesToPatch = this.filter(filter)
-
-  rulesToPatch.forEach(rule => {
-    set(rule, key, value)
-  })
-}
-
-const getLoaders = (rules, loaderRegexp) => {
-  let loaders = []
-
-  rules.forEach(rule => {
-    if(rule.loader && rule.loader.match(loaderRegexp)) {
-      loaders.push(rule)
-    } else if(rule.use) {
-      loaders = [...loaders, ...getLoaders(rule.use, loaderRegexp)]
-    }
-  })
-
-  return loaders
-}
+// const patchRules = (filter, key, value) => {
+//   const rulesToPatch = this.filter(filter)
+//
+//   rulesToPatch.forEach(rule => {
+//     set(rule, key, value)
+//   })
+// }
+//
+// const getLoaders = (rules, loaderRegexp) => {
+//   let loaders = []
+//
+//   rules.forEach(rule => {
+//     if(rule.loader && rule.loader.match(loaderRegexp)) {
+//       loaders.push(rule)
+//     } else if(rule.use) {
+//       loaders = [...loaders, ...getLoaders(rule.use, loaderRegexp)]
+//     }
+//   })
+//
+//   return loaders
+// }
 
 module.exports = {
   srcDir: 'src/',
