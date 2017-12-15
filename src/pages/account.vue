@@ -1,27 +1,7 @@
 <template lang="pug">
 v-container
-  v-layout
-    v-flex.xs12.lg4
-      v-card
-        v-card-title(primary-title)
-          p Enter your API credentials
-        v-container
-          span {{ user }}
-          v-text-field(
-            name="input-id"
-            label="id"
-            id="input-id"
-            :value="$store.state.credentials.id"
-            @change="onIdChange"
-          )
-          v-text-field(
-            name="input-secret"
-            label="secret"
-            id="input-secret"
-            :value="$store.state.credentials.secret"
-            @change="onSecretChange"
-          )
-          v-btn(@click.stop="loadAccountInfo") Save credentials
+  v-breadcrumbs
+  nuxt-child
 </template>
 
 <script>
