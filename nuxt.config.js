@@ -1,33 +1,47 @@
+const { set } = require('lodash')
+
+const patchRules = (filter, key, value) => {
+  const rulesToPatch = this.filter(filter)
+
+  rulesToPatch.forEach(rule => {
+    set(rule, key, value)
+  })
+}
+
+const getLoaders = (rules, loaderRegexp) => {
+  let loaders = []
+
+  rules.forEach(rule => {
+    if(rule.loader && rule.loader.match(loaderRegexp)) {
+      loaders.push(rule)
+    } else if(rule.use) {
+      loaders = [...loaders, ...getLoaders(rule.use, loaderRegexp)]
+    }
+  })
+
+  return loaders
+}
+
 module.exports = {
   srcDir: 'src/',
   plugins: [
-    '~/plugins/vuetify'
+    '~/plugins/bootstrap',
+    '~/plugins/filters'
   ],
   build: {
-    extend( config ) {
-      function isCssLoader( rule ) {
-        if ( rule.loader == 'css-loader' ) {
-          return rule
-        }
-      };
-
-      function useCssRule( rule ) {
-        if ( rule.use ) {
-          return rule.use.find( isCssLoader )
-        }
-      }
-
-      function isCssRule( rule ) {
-        return isCssLoader( rule ) || useCssRule( rule )
-      }
-
-      config.module.rules.forEach( rule => {
-        const cssLoader = isCssRule( rule )
-        if ( cssLoader ) {
-          // cssLoader.options.url = false
-          // cssLoader.options.import = false
-        }
-      } )
+    extend(config) {
+      config.module.rules.push({
+        test: /\.json$/,
+        loader: 'json-loader'
+      })
+      config.resolve.extensions.push('.yaml')
+      config.module.rules.push({
+        test: /\.ya?ml$/,
+        use: [
+          'json-loader',
+          'yaml-loader'
+        ]
+      })
     }
   }
 }
