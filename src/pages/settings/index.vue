@@ -1,3 +1,3 @@
 <template lang="pug">
-h2 Select
+  nuxt-link(to="api" append) api
 </template>

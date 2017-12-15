@@ -1,29 +1,18 @@
 <template lang="pug">
 v-layout
-  v-flex.xs12.lg4
-    v-card
-      v-card-title(primary-title)
-        p Enter your API credentials
-      v-container
-        span {{ user }}
-        v-text-field(
-          name="input-id"
-          label="id"
-          id="input-id"
-          :value="credentials.key"
-          @change="onIdChange"
-        )
-        v-text-field(
-          name="input-secret"
-          label="secret"
-          id="input-secret"
-          :value="credentials.secret"
-          @change="onSecretChange"
-        )
-        v-btn(@click.stop="save") Save credentials
-  p {{ provider }}
-  p {{ $store.state }}
-  p {{ credentials }}
+  v-flex
+    v-list
+      v-subheader Providers
+      //- v-list-tile
+        v-list-tile-content
+          v-list-tile-title API
+      v-list-tile(v-for="provider in providers")
+        v-list-tile-content
+          v-list-tile-sub-title {{provider.name | camelcase }}
+          v-container
+            v-layout
+              v-flex
+                v-switch(v-model="provider.active")
 </template>
 
 <script>
@@ -33,6 +22,13 @@ import querySchema from '~/schemas/query'
 export default {
   data() {
     return {
+      providers: [{
+        name: 'cex',
+        active: false
+      }, {
+        name: 'exmo',
+        active: false
+      }],
       input: {
         key: null,
         secret: null

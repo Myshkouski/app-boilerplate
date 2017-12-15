@@ -42,9 +42,9 @@ export default {
             href: '/tickers'
           },
           {
-            name: 'Account',
-            icon: 'person',
-            href: '/account'
+            name: 'Settings',
+            icon: 'settings',
+            href: '/settings'
           }
         ].map( ( item, index ) => Object.assign( item, {
           index

@@ -1,7 +1,13 @@
 <template lang="pug">
 v-container
-  v-breadcrumbs
-  nuxt-child
+  v-layout
+    v-flex
+      v-list
+        v-subheader Data
+        nuxt-link(append to='/settings/api')
+          v-list-tile
+            v-list-tile-content
+              v-list-tile-title API
 </template>
 
 <script>
