@@ -1,26 +1,15 @@
 export const state = () => ( {
-  credentials: {
-    id: null,
-    secret: null
-  }
+  credentials: {}
 } )
 
+export const getters = {
+  credentials: state => id => state.credentials[id] || {}
+}
+
 export const mutations = {
-  id( state, id ) {
-    state.credentials.id = id
-  },
-
-  secret( state, secret ) {
-    state.credentials.secret = secret
-  },
-
-  credentials( state, {
-    id,
-    secret
-  } ) {
-    Object.assign( state.credentials, {
-      id,
-      secret
-    } )
+  credentials( state, credentials ) {
+    // console.log(credentials)
+    Object.assign(state.credentials, credentials)
+    // console.log(state)
   }
 }
