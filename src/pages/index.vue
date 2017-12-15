@@ -6,7 +6,7 @@ export default {
     params,
     redirect
   } ) {
-    redirect( 301, '/tickers' )
+    redirect( 301, '/dashboard' )
   }
 }
 </script>

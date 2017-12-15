@@ -43,3 +43,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.column, .tile
+  border: 1px dashed
+</style>

@@ -30,6 +30,11 @@ module.exports = {
   ],
   build: {
     extend(config) {
+      const mainFields = ['module', 'main']
+      if(isClient) {
+        mainFields.unshift('browser')
+      }
+
       config.module.rules.push({
         test: /\.json$/,
         loader: 'json-loader'
