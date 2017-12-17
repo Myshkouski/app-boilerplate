@@ -26,12 +26,13 @@ module.exports = {
   srcDir: 'src/',
   plugins: [
     '~/plugins/bootstrap',
-    '~/plugins/filters'
+    '~/plugins/filters',
+    '~/plugins/storage'
   ],
   build: {
     extend(config) {
       const mainFields = ['module', 'main']
-      if(isClient) {
+      if(config.isClient) {
         mainFields.unshift('browser')
       }
 
@@ -39,7 +40,9 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader'
       })
+
       config.resolve.extensions.push('.yaml')
+      config.resolve.extensions.push('.yml')
       config.module.rules.push({
         test: /\.ya?ml$/,
         use: [

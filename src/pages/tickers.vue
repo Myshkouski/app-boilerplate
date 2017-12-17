@@ -1,40 +1,35 @@
 <template lang="pug">
-v-container
-	v-card
-		v-layout
-			v-flex.xs12.sm12.lg12
-				v-card-title
-					v-text-field(
-						append-icon="search"
-						label="Search"
-						single-line
-						v-model="data.search"
-						:rules="[]"
-						)
-				v-data-table(
-					:headers="data.headers"
-					:items="data.stats.current"
-					:selected="data.selected"
-					:search="data.search"
-					item-key="index"
-					select-all
-					v-model="data.selected"
-					)
-					template(slot="headerCell" slot-scope="props")
-						th.header-cell
-							span {{ props.header.text }}
-					template(slot="items" slot-scope="props")
-						tr.body-row(@dblclick="props.selected = !props.selected")
-							td.body-cell
-								v-checkbox(
-									primary
-									hide-details
-									v-model="props.selected"
-									)
-							td.body-cell.text-xs-left {{ props.item.pair.join(' / ') }}
-							td.body-cell.text-xs-right {{ props.item.provider }}
-							td.body-cell.text-xs-right {{ props.item.now.ask.toFixed(3) }}
-							td.body-cell.text-xs-right {{ props.item.now.bid.toFixed(3) }}
+v-layout
+	v-flex.xs12.sm12.lg12
+		v-card-title
+			v-text-field(
+				append-icon="search"
+				label="Search"
+				single-line
+				v-model="data.search"
+				:rules="[]"
+				)
+		v-data-table(
+			:headers="data.headers"
+			:items="data.stats.current"
+			:selected="data.selected"
+			:search="data.search"
+			item-key="index"
+			select-all
+			v-model="data.selected"
+			)
+			template(slot="items" slot-scope="props")
+				tr.body-row(@dblclick="props.selected = !props.selected")
+					td.body-cell
+						v-checkbox(
+							primary
+							hide-details
+							v-model="props.selected"
+							)
+					td.body-cell.text-xs-left {{ props.item.pair.join(' / ') }}
+					td.body-cell.text-xs-right {{ props.item.provider }}
+					td.body-cell.text-xs-right {{ props.item.now.ask.toFixed(3) }}
+					td.body-cell.text-xs-right {{ props.item.now.bid.toFixed(3) }}
 </template>
 
 <script>

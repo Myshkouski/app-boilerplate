@@ -1,18 +1,8 @@
 <template lang="pug">
-v-layout
-  v-flex
-    v-list
-      v-subheader Providers
-      //- v-list-tile
-        v-list-tile-content
-          v-list-tile-title API
-      v-list-tile(v-for="provider in providers")
-        v-list-tile-content
-          v-list-tile-sub-title {{provider.name | camelcase }}
-          v-container
-            v-layout
-              v-flex
-                v-switch(v-model="provider.active")
+v-container
+  v-layout
+    v-flex.xs12.md6
+      v-list(two-line)
 </template>
 
 <script>

@@ -71,8 +71,8 @@ export default {
 </script>
 
 <style lang="styl" src="vuetify/src/stylus/main.styl"></style>
-<style src="~/assets/style/icons.css"></style>
-<style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style>
+<style src="~/assets/style/icons.sass"></style>
+<!-- <style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style> -->
 <style lang="sass">
 html
 	overflow-y: auto

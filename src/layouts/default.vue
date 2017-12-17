@@ -1,20 +1,11 @@
 <template lang="pug">
 v-app
-	v-toolbar.hidden-lg-and-up.gray.lighten-1(fixed app)
-		//- v-toolbar-side-icon.hidden-md-and-down(@click.stop="ui.drawer = !ui.drawer")
-			v-icon mdi-menu
-		v-toolbar-title Application
 	v-navigation-drawer#drawer.hidden-md-and-down.gray.lighten-1(
 		fixed
 		touchless
 		app
 	)
 		v-list(dense)
-			v-toolbar.gray.lighten-1()
-				v-toolbar-title Application
-				v-spacer
-				v-avatar
-					v-icon person
 			v-list-tile(v-for="nav in ui.nav" :key="nav.index" :to="nav.href")
 				v-list-tile-action
 					v-icon {{ nav.icon }}
@@ -23,34 +14,10 @@ v-app
 						span {{ nav.name }}
 	v-content
 		nuxt
-	//- v-toolbar.hidden-lg-and-up.green.lighten-2(fixed app)
-	//- 	//- v-toolbar-side-icon.hidden-md-and-down(@click.stop="ui.drawer = !ui.drawer")
-	//- 		v-icon mdi-menu
-	//- 	v-toolbar-title
-	//- v-navigation-drawer#drawer.hidden-md-and-down.green.lighten-2(
-	//- 	fixed
-	//- 	touchless
-	//- 	app
-	//- )
-	//- 	v-list(dense)
-	//- 		v-toolbar.green.lighten-2()
-	//- 			v-toolbar-title Application
-	//- 			v-spacer
-	//- 			v-avatar
-	//- 				v-icon person
-	//- 		v-list-tile(v-for="nav in ui.nav" :key="nav.index" :to="nav.href")
-	//- 			v-list-tile-action
-	//- 				v-icon {{ nav.icon }}
-	//- 			v-list-tile-content
-	//- 				v-list-tile-title
-	//- 					span {{ nav.name }}
-	//- v-content
-	//- 	nuxt
-	//- v-bottom-nav.green.lighten-2.hidden-lg-and-up(fixed app :value="true" )
-	//- 	v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.href" flat color="gray")
-	//- 		span {{ nav.name }}
-	//- 		v-icon {{ nav.icon }}
-	//- //- v-footer.black(app)
+	v-bottom-nav.green.lighten-2.hidden-lg-and-up(fixed app :value="true" )
+		v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.to" flat color="gray")
+			span {{ nav.text }}
+			v-icon {{ nav.icon }}
 </template>
 
 <script>
@@ -69,9 +36,9 @@ export default {
             to: '/tickers'
           },
           {
-            name: 'Settings',
+            text: 'Settings',
             icon: 'settings',
-            href: '/settings'
+            to: '/settings'
           }
         ]
       }
@@ -80,18 +47,28 @@ export default {
 }
 </script>
 
-<style lang="styl" src="vuetify/src/stylus/main.styl"></style>
-<style src="buefy/lib/buefy.css"></style>
-<style lang="sass">
-.navbar
-	background-color: rgba(0, 0, 0, .2)
-</style>
-<style src="~/assets/style/icons.css"></style>
+<!-- <style lang="styl" src="vuetify/src/stylus/main.styl"></style> -->
+
 <!-- <style lang="styl" src="vuetify/src/stylus/bootstrap.styl"></style> -->
+
+<style lang="stylus">
+@require "~vuetify/src/stylus/main.styl"
+
+.page
+	@extend .fade-transition
+</style>
+
+<style src="~/assets/style/icons.sass"></style>
+<style src="~/assets/style/fonts.sass"></style>
+
 <style lang="sass">
 html
 	overflow-y: auto
 
 #drawer
 	min-height: 100vh
+
+a
+	color: inherit
+	bor
 </style>

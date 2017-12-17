@@ -1,15 +1,5 @@
 <template lang="pug">
-div.columns
-  div.column
-    h1.title Total balance
-    h2.subtitle $ 10.000
-    div.columns
-      div.column.is-4 5% (24H)
-      div.column.is-4 -10% (1M)
-      div.column.is-4 +15% (1Y)
-    div.column
-      partial-tabs
-//- v-container(fluid text-xs-center)*/
+v-container(fluid text-xs-center)
   v-layout(row wrap)
     v-flex(xs12)
       v-card.my-2(flat)
