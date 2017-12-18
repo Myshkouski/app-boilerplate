@@ -15,8 +15,8 @@ v-layout
         v-list-tile-content
           v-list-tile-title Endpoints
           v-list-tile-sub-title Configure API endpoints
-      v-divider
       div(v-if="providers.length")
+        v-divider
         v-subheader Endpoints
         v-list-tile(v-for="(provider, index) in providers" :key="index" @click="providerIndex=index;ui.dialog=true")
           v-list-tile-content
@@ -24,13 +24,21 @@ v-layout
             v-list-tile-sub-title {{ provider.url }}
           v-list-tile-action(@click.stop.prevent="")
             v-switch(v-model="provider.active")
+
     credentials-dialog(:show.sync="ui.dialog" :id="provider.name")
 </template>
 
 <script>
 import * as exmo from '~/api/exmo'
+import Vue from 'vue'
 
 export default {
+  head() {
+    return {
+      title: 'Settings'
+    }
+  },
+
   components: {
     'credentials-dialog': require('~/partials/settings/dialogs/credentials').default
   },

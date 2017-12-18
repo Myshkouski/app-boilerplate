@@ -1,7 +1,9 @@
 import Vue from 'vue'
 
-export const state = () => ( {
+export const strict = true
 
+export const state = () => ( {
+  location: {}
 } )
 
 export const getters = {
@@ -33,6 +35,10 @@ export const getters = {
 }
 
 export const mutations = {
+  location(state, location) {
+    Object.assign(state.location, location)
+  },
+
   credentials( state, { id, credentials } ) {
     if(Vue.localStorage) {
       Vue.localStorage.set(`credentials:${ id }`, JSON.stringify(credentials))

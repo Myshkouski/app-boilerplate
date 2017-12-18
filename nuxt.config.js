@@ -27,7 +27,8 @@ module.exports = {
   plugins: [
     '~/plugins/bootstrap',
     '~/plugins/filters',
-    '~/plugins/storage'
+    '~/plugins/storage',
+    '~/plugins/location'
   ],
   build: {
     extend(config) {

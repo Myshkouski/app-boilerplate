@@ -1,0 +1,11 @@
+v-container.column(fluid fill-height justify-center align-center)
+  v-card
+    v-card-title {{ error.statusCode }}
+    v-expansion-panel.elevation-0
+      v-expansion-panel-content
+        div(slot="header")
+          span Details
+        p {{ error }}
+        //- v-tree(v-model='error')
+    v-btn.elevation-0(fab loading)
+      v-icon home

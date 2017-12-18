@@ -1,0 +1,30 @@
+v-app
+  v-navigation-drawer#drawer.hidden-md-and-down.gray.lighten-1(
+    fixed
+    touchless
+    app
+    )
+    v-list(dense)
+      v-list-tile(v-for="nav in ui.nav" :key="nav.index" :to="nav.href")
+        v-list-tile-action
+          v-icon {{ nav.icon }}
+        v-list-tile-content
+          v-list-tile-title
+            span {{ nav.name }}
+  v-content
+    v-container.column(v-if="error" fluid fill-height justify-center align-center)
+      v-card
+        v-card-title {{ error.statusCode }}
+        v-expansion-panel.elevation-0
+          v-expansion-panel-content
+            div(slot="header")
+              span Details
+            p {{ error }}
+            //- v-tree(v-model='error')
+        v-btn.elevation-0(fab loading)
+          v-icon home
+    nuxt(v-else)
+  v-bottom-nav.gray.lighten-1.hidden-lg-and-up(fixed app :value="true" )
+    v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.to" flat color="gray")
+      span {{ nav.text }}
+      v-icon {{ nav.icon }}
