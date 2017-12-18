@@ -16,16 +16,15 @@ v-layout
           v-list-tile-title Endpoints
           v-list-tile-sub-title Configure API endpoints
       v-divider
-      v-subheader API Providers
-      v-list-tile(v-for="(provider, index) in providers" :key="index" @click="ui.providerIndex=index;ui.dialog=true")
-        v-list-tile-content
-          v-list-tile-title {{ provider.name | camelcase }}
-          v-list-tile-sub-title {{ provider.url }}
-        v-list-tile-action(@click.stop="")
-          v-switch(v-model="provider.active")
-      v-list-tile
-        input(v-model="hello")
-  credentials-dialog(:show.sync="ui.dialog" :credentials="{key: 'key', secret: 'secret'}")
+      div(v-if="providers.length")
+        v-subheader Endpoints
+        v-list-tile(v-for="(provider, index) in providers" :key="index" @click="providerIndex=index;ui.dialog=true")
+          v-list-tile-content
+            v-list-tile-title {{ provider.name | camelcase }}
+            v-list-tile-sub-title {{ provider.url }}
+          v-list-tile-action(@click.stop.prevent="")
+            v-switch(v-model="provider.active")
+    credentials-dialog(:show.sync="ui.dialog" :id="provider.name")
 </template>
 
 <script>
@@ -37,36 +36,36 @@ export default {
   },
 
   computed: {
-    'hello': {
-      get() {
-        return this.$localStorage ? this.$localStorage.get('hello') : null
-      },
-      set(value) {
-        this.$localStorage.set('hello.world', value)
-      }
+    provider() {
+      return this.providers[this.providerIndex] || {}
     }
   },
 
   data() {
     return {
       ui: {
-        dialog: false,
-        providerIndex: null
+        dialog: false
       },
-      providers: [{
-        name: 'cex',
-        active: false,
-        url: 'exmo.com/api'
-      }, {
-        name: 'exmo',
-        active: false,
-        url: 'api.cex.com'
-      }],
+      providerIndex: null,
+      providers: [],
       input: {
         key: null,
         secret: null
       }
     }
+  },
+
+  watch: {
+    providers: {
+      handler(providers) {
+        this.$store.commit('providers', providers)
+      },
+      deep: true
+    }
+  },
+
+  mounted() {
+    this.providers = this.$store.getters.providers || []
   },
 
   methods: {

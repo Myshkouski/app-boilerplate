@@ -1,15 +1,47 @@
+import Vue from 'vue'
+
 export const state = () => ( {
-  credentials: {}
+
 } )
 
 export const getters = {
-  credentials: state => id => state.credentials[id] || {}
+  credentials: state => id => {
+    if(Vue.localStorage) {
+      try {
+        return JSON.parse(Vue.localStorage.get(`credentials:${ id }`))
+      } catch(err) {
+        console.error(err)
+        return null
+      }
+    } else {
+      return null
+    }
+  },
+
+  providers: state => {
+    if(Vue.localStorage) {
+      try {
+        return JSON.parse(Vue.localStorage.get(`providers`))
+      } catch(err) {
+        console.error(err)
+        return null
+      }
+    } else {
+      return null
+    }
+  }
 }
 
 export const mutations = {
-  credentials( state, credentials ) {
-    // console.log(credentials)
-    Object.assign(state.credentials, credentials)
-    // console.log(state)
+  credentials( state, { id, credentials } ) {
+    if(Vue.localStorage) {
+      Vue.localStorage.set(`credentials:${ id }`, JSON.stringify(credentials))
+    }
+  },
+
+  providers(state, providers) {
+    if(Vue.localStorage) {
+      Vue.localStorage.set(`providers`, JSON.stringify(providers))
+    }
   }
 }

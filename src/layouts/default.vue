@@ -22,6 +22,12 @@ v-app
 
 <script>
 export default {
+	head: {
+		meta: [
+			{ charset: 'utf8' },
+			{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+		]
+	},
   data() {
     return {
       ui: {
