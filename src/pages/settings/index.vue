@@ -9,7 +9,7 @@ v-layout
         v-list-tile-content
           v-list-tile-title Account
           v-list-tile-sub-title Configure personal information
-      v-list-tile(avatar @click="")
+      v-list-tile(avatar append to="endpoints")
         v-list-tile-avatar
           v-icon(x-large) swap_horiz
         v-list-tile-content
@@ -74,6 +74,10 @@ export default {
 
   mounted() {
     this.providers = this.$store.getters.providers || []
+
+    setInterval(() => {
+      this.$store.commit('timestamp', Date.now())
+    }, 1000)
   },
 
   methods: {

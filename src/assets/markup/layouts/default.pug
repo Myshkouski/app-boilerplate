@@ -1,4 +1,6 @@
 v-app
+  v-toolbar.hidden-lg-and-up(app)
+    v-toolbar-title App
   v-navigation-drawer#drawer.hidden-md-and-down.gray.lighten-1(
     fixed
     touchless
@@ -23,8 +25,8 @@ v-app
             //- v-tree(v-model='error')
         v-btn.elevation-0(fab loading)
           v-icon home
-    nuxt(v-else)
-  v-bottom-nav.gray.lighten-1.hidden-lg-and-up(fixed app :value="true" )
+    nuxt(v-else @update:action="updateAction")
+  v-bottom-nav.hidden-lg-and-up.gray.lighten-1(fixed app :value="true" )
     v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.to" flat color="gray")
       span {{ nav.text }}
       v-icon {{ nav.icon }}

@@ -54,7 +54,9 @@ export default {
 
   data() {
     return {
-
+      ui: {
+        tabs: []
+      }
     }
   },
 

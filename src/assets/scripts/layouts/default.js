@@ -40,5 +40,11 @@ export default {
         ]
       }
     }
+  },
+
+  methods: {
+    updateAction() {
+      console.log('updateAction()')
+    }
   }
 }

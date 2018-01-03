@@ -1,4 +1,16 @@
 import Vue from 'vue'
+import Store from '@alexeimyshkouski/store/dist'
+import LocalStore from '@alexeimyshkouski/store-local-plugin'
+import VuexStore from '@alexeimyshkouski/store-vuex'
+
+Store.use(LocalStore)
+const localStorage = new Store({ type: 'local' })
+
+export const plugins = [
+  VuexStore(localStorage, {
+    'timestamp': '/time/now'
+  })
+]
 
 export const strict = true
 
@@ -8,16 +20,7 @@ export const state = () => ( {
 
 export const getters = {
   credentials: state => id => {
-    if(Vue.localStorage) {
-      try {
-        return JSON.parse(Vue.localStorage.get(`credentials:${ id }`))
-      } catch(err) {
-        console.error(err)
-        return null
-      }
-    } else {
-      return null
-    }
+    return localStorage.get(`/credentials/${ id }`) || null
   },
 
   providers: state => {
@@ -35,14 +38,16 @@ export const getters = {
 }
 
 export const mutations = {
+  timestamp(state, now) {
+    state.now = now
+  },
+
   location(state, location) {
     Object.assign(state.location, location)
   },
 
   credentials( state, { id, credentials } ) {
-    if(Vue.localStorage) {
-      Vue.localStorage.set(`credentials:${ id }`, JSON.stringify(credentials))
-    }
+    localStorage.set(`/credentials/${ id }`, credentials)
   },
 
   providers(state, providers) {

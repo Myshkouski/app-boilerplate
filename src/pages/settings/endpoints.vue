@@ -3,6 +3,10 @@ v-container
   v-layout
     v-flex.xs12.md6
       v-list(two-line)
+        v-list-tile(v-for="(p, index) in providers" :key="index")
+          v-list-tile-content
+            v-list-tile-title {{ p.name }}
+            v-list-tile-sub-title {{ p.active }}
 </template>
 
 <script>
