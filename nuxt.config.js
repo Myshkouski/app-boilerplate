@@ -6,7 +6,8 @@ module.exports = {
     '~/plugins/bootstrap',
     '~/plugins/filters',
     '~/plugins/storage',
-    '~/plugins/location'
+    '~/plugins/location',
+    { src: '~/plugins/swiper', ssr: false }
   ],
   build: {
     extend(config) {

@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@alexeimyshkouski/store": "^0.2.1",
+    "@alexeimyshkouski/store": "^0.2.2",
     "@alexeimyshkouski/store-async-plugin": "^0.2.3",
-    "@alexeimyshkouski/store-local-plugin": "^0.2.2",
+    "@alexeimyshkouski/store-local-plugin": "^0.2.3",
     "@alexeimyshkouski/store-vuex": "0.0.2",
     "axios": "^0.17.1",
     "crypto-js": "^3.1.9-1",
@@ -12,10 +12,13 @@
     "mdi": "^2.1.19",
     "nuxt": "^1.0.0-rc9",
     "vue": "^2.5.13",
+    "vue-awesome-swiper": "^3.1.0",
     "vue-filter": "^0.2.3",
     "vue-localstorage": "^0.5.0",
     "vue-meta": "^1.4.0",
     "vue-server-renderer": "^2.5.13",
+    "vue-swipe": "^2.3.0",
+    "vue-swiper": "^0.5.0",
     "vue-template-compiler": "^2.5.13",
     "vuetify": "^1.0.0-beta.1",
     "vuex": "^3.0.1"
@@ -23,6 +26,8 @@
   "devDependencies": {
     "css-loader": "^0.28.7",
     "json-loader": "^0.5.7",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "lodash.set": "^4.3.2",
     "node-sass": "^4.7.2",
     "pug": "^2.0.0-rc.4",

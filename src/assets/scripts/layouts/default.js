@@ -22,29 +22,34 @@ export default {
   data() {
     return {
       ui: {
-        drawer: false,
-        nav: [{
-            text: 'Dashboard',
-            icon: 'home',
-            to: '/dashboard'
-          }, {
-            text: 'Tickers',
-            icon: 'trending_up',
-            to: '/tickers'
-          },
-          {
-            text: 'Settings',
-            icon: 'settings',
-            to: '/settings'
-          }
-        ]
-      }
+        drawer: false
+      },
+      nav: [{
+          title: 'Dashboard',
+          icon: 'home',
+          path: '/dashboard'
+        }, {
+          title: 'Tickers',
+          icon: 'trending_up',
+          path: '/tickers'
+        }, {
+          title: 'Cashback',
+          icon: 'account_balance_wallet',
+          path: '/cashback'
+        }, {
+          title: 'Settings',
+          icon: 'settings',
+          path: '/settings'
+        }
+      ]
     }
   },
 
   methods: {
-    updateAction() {
-      console.log('updateAction()')
+    title() {
+      const root = '/' + this.$route.path.split('/')[1] || ''
+      const { title } = this.nav.find(item => item.path == root) || {}
+      return title
     }
   }
 }

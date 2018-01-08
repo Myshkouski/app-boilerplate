@@ -1,18 +1,18 @@
 v-app
   v-toolbar.hidden-lg-and-up(app)
-    v-toolbar-title App
+    v-toolbar-title {{ title() }}
   v-navigation-drawer#drawer.hidden-md-and-down.gray.lighten-1(
     fixed
     touchless
     app
     )
     v-list(dense)
-      v-list-tile(v-for="nav in ui.nav" :key="nav.index" :to="nav.href")
+      v-list-tile(v-for="(item, index) in nav" :key="index" :to="item.path")
         v-list-tile-action
-          v-icon {{ nav.icon }}
+          v-icon {{ item.icon }}
         v-list-tile-content
           v-list-tile-title
-            span {{ nav.name }}
+            span {{ item.title }}
   v-content
     v-container.column(v-if="error" fluid fill-height justify-center align-center)
       v-card
@@ -25,8 +25,8 @@ v-app
             //- v-tree(v-model='error')
         v-btn.elevation-0(fab loading)
           v-icon home
-    nuxt(v-else @update:action="updateAction")
-  v-bottom-nav.hidden-lg-and-up.gray.lighten-1(fixed app :value="true" )
-    v-btn(v-for="nav in ui.nav" :key="nav.index" :to="nav.to" flat color="gray")
-      span {{ nav.text }}
-      v-icon {{ nav.icon }}
+    nuxt(v-else)
+  v-bottom-nav.hidden-lg-and-up.gray.lighten-1(fixed app :value="true")
+    v-btn(v-for="(item, index) in nav" :key="index" :to="item.path" flat color="gray")
+      //- span {{ item.title }}
+      v-icon {{ item.icon }}
