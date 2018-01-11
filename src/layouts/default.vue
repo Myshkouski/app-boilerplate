@@ -5,7 +5,7 @@
 <style src="~/assets/style/fonts.sass"></style>
 <style src="~/assets/style/layouts/default.sass"></style>
 
-<style lang="stylus">
+<style lang="styl">
 @require "~vuetify/src/stylus/main.styl"
 
 .page

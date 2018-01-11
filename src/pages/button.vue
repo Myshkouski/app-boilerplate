@@ -1,9 +1,7 @@
 <template lang="pug">
   div
-    //- p {{ ripples.length }}
-    //- p {{ ripples }}
     div.wrapper
-      v-button.button.rippled
+      clickable.button.rippled
 </template>
 
 <script>
@@ -11,23 +9,25 @@ import Clickable from '~/components/clickable'
 
 export default {
   components: {
-    'v-button': Clickable
+    'clickable': Clickable
   }
 }
 </script>
 
 <style lang="sass" scoped>
-  /deep/ .ripple
-    transition-duration: 500ms
+  /deep/
+    .ripple
+      transition-duration: 20s
+      max-width: 20px
+      &.cancelled
+        background-color: red
+        opacity: 0
 
-    &.faded
-      background-color: gray
-    &.active
-      background-color: rgb(80, 221, 80)
-      opacity: 0
+  .wrapper
+    padding: 50px
 
   .button
-    box-shadow: 2px 2px 20px 2px gray
+    box-shadow: 2px 2px 10px 2px gray
     border-radius: 2px
 
   .button

@@ -1,5 +1,5 @@
 <template lang="pug">
-div.root(@mousedown="$emit('mousedown', $event)")
+div.root
   button
   slot
     div.content

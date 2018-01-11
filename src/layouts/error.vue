@@ -1,7 +1,7 @@
 <template lang="pug" src="~/assets/markup/layouts/default.pug"></template>
 <script src="~/assets/scripts/layouts/default.js"></script>
 
-<style lang="stylus">
+<style lang="styl">
 @require "~vuetify/src/stylus/main.styl"
 
 .page
