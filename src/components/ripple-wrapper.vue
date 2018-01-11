@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(@mousedown="$emit('mousedown', $event)")
 </template>
 
 <style lang="sass" scoped>
