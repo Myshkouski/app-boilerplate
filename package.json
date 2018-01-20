@@ -6,6 +6,8 @@
     "@alexeimyshkouski/store-vuex": "0.0.2",
     "axios": "^0.17.1",
     "crypto-js": "^3.1.9-1",
+    "css-animation": "^1.4.1",
+    "gl-matrix": "^2.4.0",
     "lodash.defaultsdeep": "^4.6.0",
     "mdi": "^2.1.19",
     "nuxt": "^1.0.0-rc9",

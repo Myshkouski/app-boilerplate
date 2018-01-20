@@ -1,16 +1,20 @@
 <template lang="pug">
 div.root
   div
-    div.button.rounded(v-for="className in classes" :class="className")
+    clickable.button.rounded(v-for="(className, index) in classes" :key="index" :class="className")
       span {{ className }}
   div
-    div.button.circle(v-for="className in classes" :class="className")
+    clickable.button.circle(v-for="(className, index) in classes" :key="index" :class="className")
       span {{ className }}
 </template>
 
 <script>
-// import Touchable from '~/components/touchable'
+import clickable from '~/components/clickable'
+
 export default {
+  components: {
+    clickable
+  },
   data() {
     return {
       classes: [
@@ -24,6 +28,15 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  /deep/
+    .ripple
+      transition-duration: .5s
+
+      &.activated
+        background-color: gray
+</style>
 
 <style lang="sass" scoped>
   $ui-size-base: 20px

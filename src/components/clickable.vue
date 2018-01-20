@@ -1,8 +1,8 @@
 <template lang="pug">
-div.root
-  button
-  slot
-    div.content
+div.clickable
+  button(v-show="false")
+  div.slot
+    slot
 </template>
 
 <script>
@@ -14,8 +14,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  .root
-    cursor: pointer
+  .clickable, .slot
+    position: relative
+  .clickable
+    display: inline-block
   button
     display: none
 </style>

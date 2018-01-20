@@ -1,76 +1,102 @@
 <template lang="pug">
-div.ripple(
-  :style="style"
-  :class="{ activated, released, cancelled }"
-  )
+transition(
+	@enter="enter"
+  enter-class="before-enter"
+  enter-active-class="before-enter"
+  after-class="entering"
+	@after-enter="afterEnter"
+  leave-active-class="released cancelled"
+	)
+	div.ripple(
+    :class="classNames"
+    :style="style"
+    )
 </template>
 
 <script>
-function _setState(state) {
-  return Object.assign(this, {
-    positioned: true,
-    activated: true,
+function _setState( state ) {
+  return Object.assign( this, {
+    entering: true,
     cancelled: false,
     released: false
-  }, state || {})
+  }, state || {} )
 }
 
-const timings = {
-  in: 20000,
-  out: 20000
-}
+// const timings = {
+//   in: 1000,
+//   out: 1000
+// }
 
 export default {
-  props: ['ripple'],
+  props: [ 'ripple' ],
+
+  // mounted() {
+  //   Object.assign( this.$el.style, {
+  //     left: `${ this.ripple.left }px`,
+  //     top: `${ this.ripple.top }px`
+  //   } )
+  // },
 
   data() {
-    return _setState.call({}, { positioned: false, activated: false })
-  },
-
-  mounted() {
-    setTimeout(() => {
-      _setState.call(this, { activated: true })
-    })
+    return _setState.call({entering: false})
   },
 
   computed: {
     style() {
-      const style = {}
-
-      if(this.positioned) {
-        Object.assign(style, {
-          'left': `${ this.ripple.x }px`,
-          'top': `${ this.ripple.y }px`
-        })
+      return {
+        left: `${ this.ripple.left }px`,
+        top: `${ this.ripple.top }px`
       }
+    },
 
-      if(this.activated) {
-        const rad = Math.sqrt(Math.pow(this.ripple.width, 2) + Math.pow(this.ripple.height, 2))
+    classNames() {
+      const {
+        entering,
+        released,
+        cancelled
+      } = this
 
-        Object.assign(style, {
-          'transform': `translateX(${ -rad }px) translateY(${ -rad }px)`,
-          'width': `${ rad * 2 }px`,
-          'height': `${ rad * 2 }px`
-        })
+      return {
+        entering,
+        released,
+        cancelled
       }
-
-      return style
     }
   },
 
   methods: {
-    setState(state) {
-      _setState.call(this, state)
+    setState( state ) {
+      _setState.call( this, state )
       return this
     },
 
-    destroy(state) {
+    destroy( state ) {
       // this.setState(state)
-      setTimeout(() => {
-        this.$el.remove()
-        this.$destroy()
-      }, timings.out)
-      return this
+      // setTimeout(() => {
+      //   this.$destroy()
+      //   this.$el.remove()
+      //   this.$el = null
+      // }, timings.out)
+      // return this
+    },
+
+    enter(el, done) {
+      done()
+    },
+
+    afterEnter(el) {
+      // console.warn('afterEnter', el)
+      // this.setState({ entering: true })
+      // console.log(this.ripple)
+      requestAnimationFrame(() => {
+        const rad = +Math.sqrt( Math.pow( this.ripple.width, 2 ) + Math.pow( this.ripple.height, 2 ) ).toFixed(3)
+
+        Object.assign( el.style, {
+          transform: `translate3d(${ -rad }px, ${ -rad }px, 0)`,
+          width: `${ rad * 2 }px`,
+          height: `${ rad * 2 }px`
+        })
+      })
     }
   }
 }
@@ -80,25 +106,34 @@ export default {
   .ripple
     position: absolute
     width: 0
-    max-width: none
     height: 0
+    max-width: none
     max-height: none
     top: 0
     left: 0
     bottom: 0
     right: 0
     border-radius: 50%
+    transition-duration: .5s
+    transition-property: width, height, border-radius, transform, background-color, opacity
     // transform: translateX(0) translateY(0)
-    transition-property: width, height, transform, background-color, opacity
-    transition-timing-function: ease-out
-    background-color: rgba(0, 0, 0, .3)
+    &.before-enter
+      width: 0
+      height: 0
 
-    &.activated
-      transition-duration: .5s
+    &.entering
+      transition-timing-function: ease-out
+
     &.released, &.cancelled
-      transition-duration: .25s
-    &.released, &.cancelled
+      transition-timing-function: ease-out
       background-color: transparent
+
+    // &.activated
+    //   transition-duration: .5s
+    // &.leave.released, &.leave.cancelled
+    //   transition-duration: .25s
+    // &.released, &.cancelled
+    //   background-color: transparent
     // &.cancelled
     //   background-color: red
     //   opacity: 0

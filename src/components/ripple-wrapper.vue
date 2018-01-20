@@ -1,36 +1,79 @@
 <template lang="pug">
-  div
-    div(ref="ripples")
-    div
+tracker.root(
+	v-model="ripples"
+	)
+	ripple(
+		v-for="(ripple, index) in ripples"
+		:key="index"
+		:ripple="ripple"
+		)
 </template>
 
 <script type="text/javascript">
-import Vue from 'vue'
 import RippleComponent from '~/components/ripple'
-const Ripple = Vue.extend( RippleComponent )
+import TrackerComponent from '~/components/touchable'
+import getElementRect from '~/helpers/getElementRect'
+
+import {
+  add as addEventListeners
+} from '~/helpers/eventListeners'
 
 export default {
+  components: {
+    tracker: TrackerComponent,
+    ripple: RippleComponent
+  },
+
+  data() {
+    return {
+      trackers: []
+    }
+  },
+
+  computed: {
+    ripples: {
+      get() {
+        const {
+          width,
+          height
+        } = this.rect()
+
+        const ripples = this.trackers.map( tracker => Object.assign( {}, {
+          width,
+          height
+        }, tracker ) )
+
+        return ripples
+      },
+      set( trackers ) {
+        this.trackers = trackers
+      }
+    }
+  },
+
   methods: {
-    ripple(rippleData) {
-      const ripple = new Ripple( {
-          propsData: {
-            ripple: rippleData
-          }
-        } )
-        .$mount()
-
-      this.$refs['ripples'].appendChild( ripple.$el )
-
-      return ripple
+    rect() {
+      return getElementRect( this.$el )
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-  div
-    position: absolute
-    width: 100%
-    height: 100%
-    overflow: hidden
+  .root
+    &, &::after
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      width: 100%
+      height: 100%
+
+    &::after
+      content: ''
+
+  .root
+    // overflow: hidden
+    transform-style: preserve-3d
 </style>

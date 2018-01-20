@@ -1,17 +1,15 @@
 <template lang="pug">
   div.box
-    div.wrapper(
-      ref="wrapper"
-      )
-      div.tracker(
-        v-for="tracker in trackers"
-        :style="{ transform: `translateX(${ tracker.x }px) translateY(${ tracker.y }px)` }"
-        )
+    swiper
 </template>
 
 <script>
 import SwiperComponent from '~/components/swiper'
-export default {}
+export default {
+  components: {
+    swiper: SwiperComponent
+  }
+}
 </script>
 
 <style lang="sass" scoped>
