@@ -1,5 +1,5 @@
 <template lang="pug">
-tracker.root(
+pointer.root(
 	v-model="ripples"
 	)
 	ripple(
@@ -11,7 +11,7 @@ tracker.root(
 
 <script type="text/javascript">
 import RippleComponent from '~/components/ripple'
-import TrackerComponent from '~/components/touchable'
+import TouchComponent from '~/components/touch'
 import getElementRect from '~/helpers/getElementRect'
 
 import {
@@ -20,13 +20,13 @@ import {
 
 export default {
   components: {
-    tracker: TrackerComponent,
+    pointer: TouchComponent,
     ripple: RippleComponent
   },
 
   data() {
     return {
-      trackers: []
+      pointers: []
     }
   },
 
@@ -38,15 +38,15 @@ export default {
           height
         } = this.rect()
 
-        const ripples = this.trackers.map( tracker => Object.assign( {}, {
+        const ripples = this.pointers.map( pointer => Object.assign( {}, {
           width,
           height
-        }, tracker ) )
+        }, pointer ) )
 
         return ripples
       },
-      set( trackers ) {
-        this.trackers = trackers
+      set( pointers ) {
+        this.pointers = pointers
       }
     }
   },
