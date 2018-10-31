@@ -1,4 +1,4 @@
-const pointerOptions = new Map()
+const pointerConfig = new Map()
 
 function create3dMatrix(array = [0, 0, 0, 0, 0, 0]) {
   if (array.length === 6) {
@@ -22,9 +22,6 @@ function create3dMatrixFromString(string) {
 
   return create3dMatrix(array)
 }
-
-// console.log(create3dMatrixFromString('matrix(1, 0, 0, 1, 0, 0)'))
-// console.log(create3dMatrixFromString('matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'))
 
 function getComputed3dMatrix(computedStyle) {
   let transformProperty = computedStyle.getPropertyValue('transform')
@@ -83,10 +80,13 @@ if (window.requestAnimationFrame) {
 }
 
 function translateOnPointerDown(event) {
-  const el = event.target
-  console.log(event)
-  if(pointerOptions.has(el)) {
-    const options = pointerOptions.get(el)
+  const el = this
+
+  if(pointerConfig.has(el)) {
+    const {
+      listeners,
+      options
+    } = pointerConfig.get(el)
     const transformOptions = options.transform || {}
     const computedStyle = window.getComputedStyle(el)
     let initialMatrix = getComputed3dMatrix(computedStyle)
@@ -133,13 +133,15 @@ function translateOnPointerDown(event) {
 
     el.setPointerCapture(event.pointerId)
 
-    document.addEventListener('pointermove', _onPointerMove)
+    document.addEventListener('pointermove', _onPointerMove, {
+      capture: true
+    })
     document.addEventListener('pointerup', _onPointerUp)
     document.addEventListener('pointercancel', _onPointerUp)
   }
 }
 
-function setPointerOptions(el, bindings) {
+function setpointerConfig(el, bindings = {}, listeners = []) {
   const xy = !('x' in bindings.modifiers || 'y' in bindings.modifiers)
 
   let options = {
@@ -152,19 +154,26 @@ function setPointerOptions(el, bindings) {
     reset: !!bindings.modifiers.reset
   }
 
-  if (pointerOptions.has(el)) {
-    options = Object.assign({}, pointerOptions.get(el), options)
+  if (pointerConfig.has(el)) {
+    options = Object.assign({}, pointerConfig.get(el), options)
   }
 
-  pointerOptions.set(el, options)
+  pointerConfig.set(el, {
+    options,
+    listeners: [
+      ['pointerdown', translateOnPointerDown.bind(el), {}]
+    ]
+  })
 }
 
 export default {
-  bind: setPointerOptions,
-  update: setPointerOptions,
+  bind: setpointerConfig,
+  update: setpointerConfig,
 
   inserted(el) {
-    el.addEventListener('pointerdown', translateOnPointerDown)
+    const listenersMap = [
+      ['pointerdown', translateOnPointerDown.bind(el), {}]
+    ]
 
     const eventTypes = [
       // 'pointerenter',
@@ -179,14 +188,19 @@ export default {
       // 'lostpointercapture'
     ]
 
-    eventTypes.forEach(eventType => {
-      el.addEventListener(eventType, event => {
-        console.log(event.type, event)
-        // event.preventDefault()
-        // event.stopPropagation()
-      }, {
-        // passive: false
-      })
+    listenersMap.forEach(([eventTypes, handlers, options]) => {
+      if(typeof eventTypes === 'string') {
+        eventTypes = [eventTypes]
+      }
+      if(typeof handlers === 'function') {
+        handlers = [handlers]
+      }
+
+      for(let eventType of eventTypes) {
+        for(let handler of handlers) {
+          el.addEventListener(eventType, handler, options)
+        }
+      }
     })
 
     // console.log('inserted')
@@ -198,7 +212,25 @@ export default {
 
   unbind(el, bindings) {
     // console.log('unbind')
-    el.removeEventListener('pointerdown', translateOnPointerDown)
-    pointerOptions.delete(el)
+    const {
+      listeners
+    } = pointerConfig.get(el)
+
+    listeners.forEach(([eventTypes, handlers, options]) => {
+      if(typeof eventTypes === 'string') {
+        eventTypes = [eventTypes]
+      }
+      if(typeof handlers === 'function') {
+        handlers = [handlers]
+      }
+
+      for(let eventType of eventTypes) {
+        for(let handler of handlers) {
+          el.removeEventListener(eventType, handler)
+        }
+      }
+    })
+
+    pointerConfig.delete(el)
   }
 }

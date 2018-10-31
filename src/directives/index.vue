@@ -1,10 +1,11 @@
 <template lang="pug">
-div
+div(
+  style="touch-action: none"
+  )
   div#container(
-    style="touch-action: none"
-    v-pointer:handler="onUpdate"
+    v-pointer:transform="'translate'"
     )
-    div#touchable()
+    div#touchable(v-pointer:transform="'translate'")
 </template>
 
 <script>
